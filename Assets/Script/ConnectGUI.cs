@@ -63,9 +63,6 @@ public class ConnectGUI : MonoBehaviour{
         ModeC[1].SetActive(true);
         ModeC[2].SetActive(true);
     }
-    public void Exit(){
-        Application.Quit();
-    }
     public void TimeU(){
         string dayOfWeek = System.DateTime.Now.ToString("dddd", new CultureInfo("pl-PL")).ToUpper();
         string date = System.DateTime.Now.ToString("dd.MM.yyyy");
