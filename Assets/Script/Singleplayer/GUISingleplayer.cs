@@ -1,10 +1,27 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using System.Text.RegularExpressions;
+using UnityEngine.SceneManagement;
 
 public class GUISingleplayer : MonoBehaviour
 {
     [SerializeField] private GameObject[] panel; //Singleplayer, Tworzenie, Logowanie
     [SerializeField] private TextMeshProUGUI textE;
+    [SerializeField] private GameObject AccountObject;
+
+
+
+    [HideInInspector] public string TextName;
+    private TextMeshProUGUI TextNameTObject;
+    private void Awake() {
+        GameObject SingleObject = GameObject.Find("SingleObject(Clone)");
+        if(SingleObject == null){
+            Instantiate(AccountObject);
+        }else{
+            Destroy(SingleObject);
+        }
+    }
     public void Create(){
         panel[0].SetActive(false);
         panel[1].SetActive(true);
@@ -26,5 +43,9 @@ public class GUISingleplayer : MonoBehaviour
         }else{
             Application.Quit();
         }
+    }
+    public void Enter(){
+        string originalText = TextNameTObject.text;
+        TextName = Regex.Replace(originalText, @"^\d+\.\s", "").Replace(" ", ".");
     }
 }

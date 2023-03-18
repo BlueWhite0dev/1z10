@@ -11,6 +11,9 @@ public class LobbyGUI : MonoBehaviour{
     [SerializeField] private TextMeshProUGUI title;
     public LobbyManager lobbyManager;
     public TextMeshProUGUI assistT;
+    private void Awake() {
+        Destroy(GameObject.Find("SingleObject(Clone)"));
+    }
     private void Start() {
         title.text = $"{PhotonNetwork.NickName }@gmail.com";
     }

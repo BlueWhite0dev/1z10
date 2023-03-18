@@ -9,6 +9,7 @@ public class JoinToSinglePlayer : MonoBehaviour{
     [SerializeField] private List<string> folderNames = new List<string>(); //!Do usuniecia
     [SerializeField] private GameObject[] arrowsObject;
     [SerializeField] private TextMeshProUGUI userNameT;
+    [SerializeField] private GameObject Logowanie_Button;
     private int i;
     private void Start() {
         ButtonL();
@@ -23,22 +24,30 @@ public class JoinToSinglePlayer : MonoBehaviour{
                 folderNames.Add(folderName);
             }
             Debug.Log(folderNames.Count);
-            userNameT.text = $"{i+1}. {folderNames[0]}";
+            //userNameT.text = $"{i+1}. {folderNames[0]}";
+
+            if(folderNames.Count >= 1){
+                Logowanie_Button.SetActive(true);
+                userNameT.text = $"{i+1}. {folderNames[0]}";
+            }else{
+                Logowanie_Button.SetActive(false);
+            }
+
+
             if(folderNames.Count <= 1){
                 arrowsObject[1].SetActive(false);
             }else{
                 arrowsObject[1].SetActive(true);
             }
 
-
-            if(folderNames[0] == folderNames[0]){
-                arrowsObject[0].SetActive(false);
-            }else{
-                arrowsObject[0].SetActive(true);
-            }
-
         }else{
             Debug.Log("Nie ma"); //! Do zmiany
+        }
+
+        if(folderNames[0] == folderNames[0] || folderNames.Count == 0){
+            arrowsObject[0].SetActive(false);
+        }else if(folderNames.Count > 0){
+            arrowsObject[0].SetActive(true);
         }
     }
     public void arrowL() {
