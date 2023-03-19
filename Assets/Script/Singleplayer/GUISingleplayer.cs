@@ -13,7 +13,7 @@ public class GUISingleplayer : MonoBehaviour
 
 
     [HideInInspector] public string TextName;
-    private TextMeshProUGUI TextNameTObject;
+    [SerializeField] private TextMeshProUGUI TextNameTObject;
     private void Awake() {
         GameObject SingleObject = GameObject.Find("SingleObject(Clone)");
         if(SingleObject == null){
