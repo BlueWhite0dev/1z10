@@ -41,6 +41,7 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
      <Compile Include="Assets\Script\Singleplayer\GUISingleplayer.cs" />
      <Compile Include="Assets\Photon\PhotonLibs\WebSocket\SocketWebTcp.cs" />
+     <Compile Include="Assets\Script\Singleplayer\Game\Testy.cs" />
      <Compile Include="Assets\Script\LobbyManager.cs" />
      <Compile Include="Assets\Script\RoomItem.cs" />
      <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChatAppIdCheckerUI.cs" />

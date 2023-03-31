@@ -9,6 +9,7 @@ public class UISingleplayer : MonoBehaviour{
     private JoinToRoom @JoinToRoom;
     [SerializeField] private TextMeshProUGUI Name;
     [SerializeField] private GameObject[] panel;
+    [SerializeField] private GameObject PanelLeft;
     public string path;
     private void Awake() {
         GameObject singleObject = GameObject.Find("SingleObject(Clone)");
@@ -43,10 +44,12 @@ public class UISingleplayer : MonoBehaviour{
     }
     public void StatystykiP(){
         ShowPanel(0);
+        PanelLeft.SetActive(true);
     }
 
     public void TestyP(){
         ShowPanel(1);
+        PanelLeft.SetActive(false);
     }
 
     public void KonwersjaP(){
