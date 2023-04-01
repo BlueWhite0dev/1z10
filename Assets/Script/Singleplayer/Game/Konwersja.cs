@@ -58,10 +58,6 @@ public class Konwersja : MonoBehaviour{
         liczba[0] = System.Convert.ToString(int.Parse(liczba[2]), 2);
         liczba[1] = System.Convert.ToString(int.Parse(liczba[2]), 8);
         liczba[3] = System.Convert.ToString(int.Parse(liczba[2]), 16).ToUpper();
-        UnityEngine.Debug.Log(liczba[0]);
-        UnityEngine.Debug.Log(liczba[1]);
-        UnityEngine.Debug.Log(liczba[2]);
-        UnityEngine.Debug.Log(liczba[3]);
 
         switch(randomLiczba){
             case 0: //binarny
@@ -102,6 +98,11 @@ public class Konwersja : MonoBehaviour{
             for (int i = 0; i < buttons.Length; i++){
                 buttons[i].interactable = true;
             }
+            for(int i =0; i < TextConvert.Length; i++){
+                sprawdzanieT[i].text = "";
+                TextConvert[i].text = "";
+            }
+            stopwatch.Reset();
             TextButton.text = "SPRAWDŹ";
             ButtonStart.SetActive(true);
             ButtonEnd.SetActive(false);

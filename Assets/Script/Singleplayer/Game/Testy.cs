@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using System.Diagnostics;
 using System;
+using System.IO;
 
 public class Testy : MonoBehaviour{
     [Header("Categories")]
@@ -53,7 +54,7 @@ public class Testy : MonoBehaviour{
     [SerializeField] private TextMeshProUGUI[] answerT;
     [SerializeField] private TextMeshProUGUI questionT;
     [SerializeField] Image image;
-    private int good;
+    [SerializeField] private int good;
     [Header("End")]
     [SerializeField] private GameObject PanelEnd;
     [SerializeField] private TextMeshProUGUI zdane;
@@ -63,9 +64,88 @@ public class Testy : MonoBehaviour{
     [SerializeField] private TextMeshProUGUI numberQuestionN;
     [SerializeField] private Image imageAfter;
     int q = 0;
+    [Header("Pytania")]
+    public UISingleplayer @UISingleplayer;
+    //before
+    [SerializeField] private List<int> SPytaniaB;
+    [SerializeField] private List<int> EPytaniaB;
+    [SerializeField] private List<int> OPytaniaB;
+    [SerializeField] private List<int> UPytaniaB;
+    //after
+    [SerializeField] private List<int> SPytaniaA;
+    [SerializeField] private List<int> EPytaniaA;
+    [SerializeField] private List<int> OPytaniaA;
+    [SerializeField] private List<int> UPytaniaA;
+    public string pathT;
+    public string PathN;
+    public JoinToRoom @JoinToRoom;
     [Header("Timer")]
     private Stopwatch stopwatch = new Stopwatch();
-
+    private void Awake() {
+        GameObject singleObject = GameObject.Find("SingleObject(Clone)");
+        @JoinToRoom = singleObject.GetComponent<JoinToRoom>();
+    }
+    private void Start() {
+        pathT = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "1z11", @JoinToRoom.TextName, "Statystyki", "Testy");
+        PathN = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "1z11", @JoinToRoom.TextName, "Statystyki", "NieZdane");
+    }
+    private void read(string path, List<int> beforeL){
+        string[] lines = File.ReadAllLines(path);
+        foreach (string line in lines)
+        {
+            string[] numbers = line.Split(',');
+            foreach (string number in numbers)
+            {
+                int value;
+                if (int.TryParse(number, out value))
+                {
+                    beforeL.Add(value);
+                }
+            }
+        }
+    }
+    private void AfterQ(){
+        string pathS = Path.Combine(PathN, "SO.txt");
+        string pathE = Path.Combine(PathN, "ELSK.txt");
+        string pathO = Path.Combine(PathN, "EE.txt");
+        string pathU = Path.Combine(PathN, "UTK.txt");
+        if(categories[0]){ //soper
+            foreach(int number in SPytaniaA){
+                if(!SPytaniaB.Contains(number)){
+                    SPytaniaB.Add(number);
+                }
+            }
+            string content = string.Join(",", SPytaniaB);
+            File.WriteAllText(pathS, content);
+        }
+        if(categories[1]){ //elsk
+            foreach(int number in EPytaniaA){
+                if(!EPytaniaB.Contains(number)){
+                    EPytaniaB.Add(number);
+                }
+            }
+            string content = string.Join(",", EPytaniaB);
+            File.WriteAllText(pathE, content);
+        }
+        if(categories[2]){ //ogolne
+            foreach(int number in OPytaniaA){
+                if(!OPytaniaB.Contains(number)){
+                    OPytaniaB.Add(number);
+                }
+            }
+            string content = string.Join(",", OPytaniaB);
+            File.WriteAllText(pathO, content);
+        }
+        if(categories[3]){ //utk
+            foreach(int number in UPytaniaA){
+                if(!UPytaniaB.Contains(number)){
+                    UPytaniaB.Add(number);
+                }
+            }
+            string content = string.Join(",", UPytaniaB);
+            File.WriteAllText(pathU, content);
+        }
+    }
     private void Update(){
         if(PanelTest.activeSelf){
             TimeSpan remainingTime = TimeSpan.FromSeconds(90) - stopwatch.Elapsed;
@@ -109,6 +189,7 @@ public class Testy : MonoBehaviour{
         }
     }
     public void SO(){
+        read(Path.Combine(PathN, "SO.txt"), SPytaniaB);
         categories[0] = true;
         PanelCategories.SetActive(false);
         PanelTest.SetActive(true);
@@ -116,6 +197,7 @@ public class Testy : MonoBehaviour{
         DalejB();
     }
     public void ELSK(){
+        read(Path.Combine(PathN, "ELSK.txt"), EPytaniaB);
         categories[1] = true;
         PanelCategories.SetActive(false);
         PanelTest.SetActive(true);
@@ -123,6 +205,7 @@ public class Testy : MonoBehaviour{
         DalejB();
     }
     public void EE(){
+        read(Path.Combine(PathN, "EE.txt"), OPytaniaB);
         categories[2] = true;
         PanelCategories.SetActive(false);
         PanelTest.SetActive(true);
@@ -130,6 +213,7 @@ public class Testy : MonoBehaviour{
         DalejB();
     }
     public void UTK(){
+        read(Path.Combine(PathN, "UTK.txt"), UPytaniaB);
         categories[3] = true;
         PanelCategories.SetActive(false);
         PanelTest.SetActive(true);
@@ -235,37 +319,132 @@ public class Testy : MonoBehaviour{
                 buttons[i].GetComponent<Image>().color = Color.white;
             }
         }else{
+            AfterQ();
+            SPytaniaA.Clear();
+            EPytaniaA.Clear();
+            OPytaniaA.Clear();
+            UPytaniaA.Clear();
+
             PanelTest.SetActive(false);
             PanelEnd.SetActive(true);
             if(good >= 20){
                 zdane.text = "Twoja ocena: zdane";
-            }else{
-                zdane.text = "Twoja ocena: nie zdane";
-            }
-            zdaneCount.text = $"{good}/40";
-            if(good != 40){
                 if(categories[0]){
-                    badQuestion.text = PytaniaS[question[q]];
-                    goodAnswer.text = OdpGPytanS[question[q]];
-                    imageAfter.sprite = zdjeciaPytanS[question[q]];
+                    string line = File.ReadAllText(Path.Combine(pathT, "SO.txt"));
+                    string[] split = line.Split("/");
+                    File.WriteAllText(line, $"{int.Parse(split[0])+1}/{int.Parse(split[1])+1}");
+
+                    line = Path.Combine(pathT, "Zdawalnosc", "SO.txt");
+                    split = line.Split("/");
+                    if(int.Parse(split[0]) != 5){
+                        File.WriteAllText(line, $"{int.Parse(split[0])+1}/{int.Parse(split[1])}");
+                    }
                 }
                 if(categories[1]){
-                    badQuestion.text = PytaniaE[question[q]];
-                    goodAnswer.text = OdpGPytanE[question[q]];
-                    imageAfter.sprite = zdjeciaPytanE[question[q]];
+                    string line = File.ReadAllText(Path.Combine(pathT, "ELSK.txt"));
+                    string[] split = line.Split("/");
+                    File.WriteAllText(line, $"{int.Parse(split[0])+1}/{int.Parse(split[1])+1}");
+
+                    line = Path.Combine(pathT, "Zdawalnosc", "ELSK.txt");
+                    split = line.Split("/");
+                    if(int.Parse(split[0]) != 5){
+                        File.WriteAllText(line, $"{int.Parse(split[0])+1}/{int.Parse(split[1])}");
+                    }
                 }
                 if(categories[2]){
-                    badQuestion.text = PytaniaO[question[q]];
-                    goodAnswer.text = OdpGPytanO[question[q]];
-                    imageAfter.sprite = zdjeciaPytanO[question[q]];
+                    string line = File.ReadAllText(Path.Combine(pathT, "EE.txt"));
+                    string[] split = line.Split("/");
+                    File.WriteAllText(line, $"{int.Parse(split[0])+1}/{int.Parse(split[1])+1}");
+
+                    line = Path.Combine(pathT, "Zdawalnosc", "EE.txt");
+                    split = line.Split("/");
+                    if(int.Parse(split[0]) != 5){
+                        File.WriteAllText(line, $"{int.Parse(split[0])+1}/{int.Parse(split[1])}");
+                    }
                 }
                 if(categories[3]){
-                    badQuestion.text = PytaniaU[question[q]];
-                    goodAnswer.text = OdpGPytanU[question[q]];
-                    imageAfter.sprite = zdjeciaPytanU[question[q]];
+                    string line = File.ReadAllText(Path.Combine(pathT, "UTK.txt"));
+                    string[] split = line.Split("/");
+                    File.WriteAllText(line, $"{int.Parse(split[0])+1}/{int.Parse(split[1])+1}");
+
+                    line = Path.Combine(pathT, "Zdawalnosc", "UTK.txt");
+                    split = line.Split("/");
+                    if(int.Parse(split[0]) != 5){
+                        File.WriteAllText(line, $"{int.Parse(split[0])+1}/{int.Parse(split[1])}");
+                    }
                 }
-                numberQuestionN.text = $"{q+1}";
+            }else{
+                zdane.text = "Twoja ocena: nie zdane";
+                if(categories[0]){
+                    string line = File.ReadAllText(Path.Combine(pathT, "SO.txt"));
+                    string[] split = line.Split("/");
+                    UnityEngine.Debug.Log(line);
+                    File.WriteAllText(Path.Combine(pathT, "SO.txt"), $"{int.Parse(split[0])}/{int.Parse(split[1])+1}");
+
+                    line = Path.Combine(pathT, "Zdawalnosc", "SO.txt");
+                    split = line.Split("/");
+                    if(int.TryParse(split[0], out int intValue) && intValue !=  0){
+                        UnityEngine.Debug.Log("dziala");
+                        File.WriteAllText(Path.Combine(pathT, "Zdawalnosc", "SO.txt"), $"{int.Parse(split[0])-1}/{int.Parse(split[1])}");
+                    }
+                }
+                if(categories[1]){
+                    string line = File.ReadAllText(Path.Combine(pathT, "ELSK.txt"));
+                    string[] split = line.Split("/");
+                    File.WriteAllText(Path.Combine(pathT, "ELSK.txt"), $"{int.Parse(split[0])}/{int.Parse(split[1])+1}");
+
+                    line = Path.Combine(pathT, "Zdawalnosc", "ELSK.txt");
+                    split = line.Split("/");
+                    if(int.Parse(split[0]) != 0){
+                        File.WriteAllText(Path.Combine(pathT, "Zdawalnosc", "ELSK.txt"), $"{int.Parse(split[0])-1}/{int.Parse(split[1])}");
+                    }
+                }
+                if(categories[2]){
+                    string line = File.ReadAllText(Path.Combine(pathT, "EE.txt"));
+                    string[] split = line.Split("/");
+                    File.WriteAllText(Path.Combine(pathT, "EE.txt"), $"{int.Parse(split[0])}/{int.Parse(split[1])+1}");
+
+                    line = Path.Combine(pathT, "Zdawalnosc", "EE.txt");
+                    split = line.Split("/");
+                    if(int.Parse(split[0]) != 0){
+                        File.WriteAllText(Path.Combine(pathT, "Zdawalnosc", "EE.txt"), $"{int.Parse(split[0])-1}/{int.Parse(split[1])}");
+                    }
+                }
+                if(categories[3]){
+                    string line = File.ReadAllText(Path.Combine(pathT, "UTK.txt"));
+                    string[] split = line.Split("/");
+                    File.WriteAllText(Path.Combine(pathT, "UTK.txt"), $"{int.Parse(split[0])}/{int.Parse(split[1])+1}");
+
+                    line = Path.Combine(pathT, "Zdawalnosc", "UTK.txt");
+                    split = line.Split("/");
+                    if(int.Parse(split[0]) != 0){
+                        File.WriteAllText(Path.Combine(pathT, "Zdawalnosc", "UTK.txt"), $"{int.Parse(split[0])-1}/{int.Parse(split[1])}");
+                    }
+                }
             }
+            zdaneCount.text = $"{good}/40";
+            //! if != 40
+            if(categories[0]){
+                badQuestion.text = PytaniaS[question[q]];
+                goodAnswer.text = OdpGPytanS[question[q]];
+                imageAfter.sprite = zdjeciaPytanS[question[q]];
+            }
+            if(categories[1]){
+                badQuestion.text = PytaniaE[question[q]];
+                goodAnswer.text = OdpGPytanE[question[q]];
+                imageAfter.sprite = zdjeciaPytanE[question[q]];
+            }
+            if(categories[2]){
+                badQuestion.text = PytaniaO[question[q]];
+                goodAnswer.text = OdpGPytanO[question[q]];
+                imageAfter.sprite = zdjeciaPytanO[question[q]];
+            }
+            if(categories[3]){
+                badQuestion.text = PytaniaU[question[q]];
+                goodAnswer.text = OdpGPytanU[question[q]];
+                imageAfter.sprite = zdjeciaPytanU[question[q]];
+            }
+            numberQuestionN.text = $"{q+1}";
         }
     }
     public void LeftArrow(){
@@ -330,6 +509,7 @@ public class Testy : MonoBehaviour{
                 good++;
                 buttons[0].GetComponent<Image>().color = Color.green;
             }else{
+                SPytaniaA.Add(question[numberQuestion]);
                 buttons[0].GetComponent<Image>().color = Color.red;
                 for(int i =0; i<4; i++){
                     if(answerT[i].text == OdpGPytanS[question[numberQuestion]]){
@@ -343,6 +523,7 @@ public class Testy : MonoBehaviour{
                 good++;
                 buttons[0].GetComponent<Image>().color = Color.green;
             }else{
+                EPytaniaA.Add(question[numberQuestion]);
                 buttons[0].GetComponent<Image>().color = Color.red;
                 for(int i =0; i<4; i++){
                     if(answerT[i].text == OdpGPytanE[question[numberQuestion]]){
@@ -356,6 +537,7 @@ public class Testy : MonoBehaviour{
                 good++;
                 buttons[0].GetComponent<Image>().color = Color.green;
             }else{
+                OPytaniaA.Add(question[numberQuestion]);
                 buttons[0].GetComponent<Image>().color = Color.red;
                 for(int i =0; i<4; i++){
                     if(answerT[i].text == OdpGPytanO[question[numberQuestion]]){
@@ -369,6 +551,7 @@ public class Testy : MonoBehaviour{
                 good++;
                 buttons[0].GetComponent<Image>().color = Color.green;
             }else{
+                UPytaniaA.Add(question[numberQuestion]);
                 buttons[0].GetComponent<Image>().color = Color.red;
                 for(int i =0; i<4; i++){
                     if(answerT[i].text == OdpGPytanU[question[numberQuestion]]){
@@ -386,6 +569,7 @@ public class Testy : MonoBehaviour{
                 good++;
                 buttons[1].GetComponent<Image>().color = Color.green;
             }else{
+                SPytaniaA.Add(question[numberQuestion]);
                 buttons[1].GetComponent<Image>().color = Color.red;
                 for(int i =0; i<4; i++){
                     if(answerT[i].text == OdpGPytanS[question[numberQuestion]]){
@@ -399,6 +583,7 @@ public class Testy : MonoBehaviour{
                 good++;
                 buttons[1].GetComponent<Image>().color = Color.green;
             }else{
+                EPytaniaA.Add(question[numberQuestion]);
                 buttons[1].GetComponent<Image>().color = Color.red;
                 for(int i =0; i<4; i++){
                     if(answerT[i].text == OdpGPytanE[question[numberQuestion]]){
@@ -412,6 +597,7 @@ public class Testy : MonoBehaviour{
                 good++;
                 buttons[1].GetComponent<Image>().color = Color.green;
             }else{
+                OPytaniaA.Add(question[numberQuestion]);
                 buttons[1].GetComponent<Image>().color = Color.red;
                 for(int i =0; i<4; i++){
                     if(answerT[i].text == OdpGPytanO[question[numberQuestion]]){
@@ -425,6 +611,7 @@ public class Testy : MonoBehaviour{
                 good++;
                 buttons[1].GetComponent<Image>().color = Color.green;
             }else{
+                UPytaniaA.Add(question[numberQuestion]);
                 buttons[1].GetComponent<Image>().color = Color.red;
                 for(int i =0; i<4; i++){
                     if(answerT[i].text == OdpGPytanU[question[numberQuestion]]){
@@ -442,6 +629,7 @@ public class Testy : MonoBehaviour{
                 good++;
                 buttons[2].GetComponent<Image>().color = Color.green;
             }else{
+                SPytaniaA.Add(question[numberQuestion]);
                 buttons[2].GetComponent<Image>().color = Color.red;
                 for(int i =0; i<4; i++){
                     if(answerT[i].text == OdpGPytanS[question[numberQuestion]]){
@@ -455,6 +643,7 @@ public class Testy : MonoBehaviour{
                 good++;
                 buttons[2].GetComponent<Image>().color = Color.green;
             }else{
+                EPytaniaA.Add(question[numberQuestion]);
                 buttons[2].GetComponent<Image>().color = Color.red;
                 for(int i =0; i<4; i++){
                     if(answerT[i].text == OdpGPytanE[question[numberQuestion]]){
@@ -468,6 +657,7 @@ public class Testy : MonoBehaviour{
                 good++;
                 buttons[2].GetComponent<Image>().color = Color.green;
             }else{
+                OPytaniaA.Add(question[numberQuestion]);
                 buttons[2].GetComponent<Image>().color = Color.red;
                 for(int i =0; i<4; i++){
                     if(answerT[i].text == OdpGPytanO[question[numberQuestion]]){
@@ -481,6 +671,7 @@ public class Testy : MonoBehaviour{
                 good++;
                 buttons[2].GetComponent<Image>().color = Color.green;
             }else{
+                UPytaniaA.Add(question[numberQuestion]);
                 buttons[2].GetComponent<Image>().color = Color.red;
                 for(int i =0; i<4; i++){
                     if(answerT[i].text == OdpGPytanU[question[numberQuestion]]){
@@ -498,6 +689,7 @@ public class Testy : MonoBehaviour{
                 good++;
                 buttons[3].GetComponent<Image>().color = Color.green;
             }else{
+                SPytaniaA.Add(question[numberQuestion]);
                 buttons[3].GetComponent<Image>().color = Color.red;
                 for(int i =0; i<4; i++){
                     if(answerT[i].text == OdpGPytanS[question[numberQuestion]]){
@@ -511,6 +703,7 @@ public class Testy : MonoBehaviour{
                 good++;
                 buttons[3].GetComponent<Image>().color = Color.green;
             }else{
+                EPytaniaA.Add(question[numberQuestion]);
                 buttons[3].GetComponent<Image>().color = Color.red;
                 for(int i =0; i<4; i++){
                     if(answerT[i].text == OdpGPytanE[question[numberQuestion]]){
@@ -524,6 +717,7 @@ public class Testy : MonoBehaviour{
                 good++;
                 buttons[3].GetComponent<Image>().color = Color.green;
             }else{
+                OPytaniaA.Add(question[numberQuestion]);
                 buttons[3].GetComponent<Image>().color = Color.red;
                 for(int i =0; i<4; i++){
                     if(answerT[i].text == OdpGPytanO[question[numberQuestion]]){
@@ -537,6 +731,7 @@ public class Testy : MonoBehaviour{
                 good++;
                 buttons[3].GetComponent<Image>().color = Color.green;
             }else{
+                UPytaniaA.Add(question[numberQuestion]);
                 buttons[3].GetComponent<Image>().color = Color.red;
                 for(int i =0; i<4; i++){
                     if(answerT[i].text == OdpGPytanU[question[numberQuestion]]){
