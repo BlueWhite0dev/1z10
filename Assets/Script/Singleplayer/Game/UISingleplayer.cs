@@ -163,6 +163,7 @@ public class UISingleplayer : MonoBehaviour{
     }
     public void TrudneTesty(){
         ShowPanel(2);
+        PanelLeft.SetActive(false);
     }
 
     public void KonwersjaP(){
