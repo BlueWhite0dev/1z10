@@ -9,7 +9,6 @@ public class Konwersja : MonoBehaviour{
     [SerializeField] private GameObject ButtonStart;
     [SerializeField] private GameObject ButtonEnd;
     [SerializeField] private GameObject[] TimerObject;
-    [SerializeField] private Button[] buttons;
     [SerializeField] private GameObject panelC;
     [SerializeField] private TMP_InputField[] TextConvert;
     [SerializeField] private string[] liczba = new string[4];
@@ -41,9 +40,6 @@ public class Konwersja : MonoBehaviour{
     public void Obliczanie(){
         TextButton.text = "SPRAWDŹ";
         ButtonStart.SetActive(false);
-        for (int i = 0; i < buttons.Length; i++){
-            buttons[i].interactable = false;
-        }
         ButtonEnd.SetActive(true);
         TimerObject[0].SetActive(true);
         TimerObject[1].SetActive(true);
@@ -95,9 +91,6 @@ public class Konwersja : MonoBehaviour{
             checkRecord();
             TextButton.text = "ZAKOŃCZ";
         }else{
-            for (int i = 0; i < buttons.Length; i++){
-                buttons[i].interactable = true;
-            }
             for(int i =0; i < TextConvert.Length; i++){
                 sprawdzanieT[i].text = "";
                 TextConvert[i].text = "";
@@ -109,6 +102,7 @@ public class Konwersja : MonoBehaviour{
             TimerObject[0].SetActive(false);
             TimerObject[1].SetActive(false);
             panelC.SetActive(false);
+            @UISingleplayer.StatystykiP();
         }
     }
 

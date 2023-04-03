@@ -12,6 +12,8 @@ public class TrudneTesty : MonoBehaviour{
     private bool[] categories = {false, false, false, false};
     [SerializeField] private GameObject PanelCategories;
     [SerializeField] private GameObject PanelTest;
+    [SerializeField] private GameObject PanelStatystyki;
+    [SerializeField] private GameObject PanelTrudnetesty;
     [SerializeField] private TextMeshProUGUI NumberQuestionT;
     [Header("Pytania")]
     int numer;
@@ -33,6 +35,20 @@ public class TrudneTesty : MonoBehaviour{
     }
     private void Start() {
         PathN = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "1z11", @JoinToRoom.TextName, "Statystyki", "NieZdane");
+    }
+    private void Update() {
+        if(categories[0]){
+            NumberQuestionT.text = $"{numer} z {SPytania.Count}";
+        }
+        if(categories[1]){
+            NumberQuestionT.text = $"{numer} z {EPytania.Count}";
+        }
+        if(categories[2]){
+            NumberQuestionT.text = $"{numer} z {OPytania.Count}";
+        }
+        if(categories[3]){
+            NumberQuestionT.text = $"{numer} z {UPytania.Count}";
+        }
     }
     public void Check(){
         read(Path.Combine(PathN, "SO.txt"), SPytania, 0);
@@ -73,11 +89,6 @@ public class TrudneTesty : MonoBehaviour{
                     beforeL.Add(value);
                 }
             }
-            //if(beforeL.Count == 0){
-            //    buttonCategories[i].SetActive(false);
-            //}else{
-            //    buttonCategories[i].SetActive(true);
-            //}
         }
 
     }
@@ -108,6 +119,9 @@ public class TrudneTesty : MonoBehaviour{
     public void zakoncz(){
         PanelCategories.SetActive(true);
         PanelTest.SetActive(false);
+        PanelTrudnetesty.SetActive(false);
+        PanelStatystyki.SetActive(true);
+        numer = 0;
     }
     private void UI(){
         for(int i =0; i<4; i++){

@@ -395,7 +395,7 @@ public class Testy : MonoBehaviour{
 
                     line = Path.Combine(pathT, "Zdawalnosc", "ELSK.txt");
                     split = line.Split("/");
-                    if(int.Parse(split[0]) != 0){
+                    if(int.TryParse(split[0], out int intValue) && intValue !=  0){
                         File.WriteAllText(Path.Combine(pathT, "Zdawalnosc", "ELSK.txt"), $"{int.Parse(split[0])-1}/{int.Parse(split[1])}");
                     }
                 }
@@ -406,7 +406,7 @@ public class Testy : MonoBehaviour{
 
                     line = Path.Combine(pathT, "Zdawalnosc", "EE.txt");
                     split = line.Split("/");
-                    if(int.Parse(split[0]) != 0){
+                    if(int.TryParse(split[0], out int intValue) && intValue !=  0){
                         File.WriteAllText(Path.Combine(pathT, "Zdawalnosc", "EE.txt"), $"{int.Parse(split[0])-1}/{int.Parse(split[1])}");
                     }
                 }
@@ -417,7 +417,7 @@ public class Testy : MonoBehaviour{
 
                     line = Path.Combine(pathT, "Zdawalnosc", "UTK.txt");
                     split = line.Split("/");
-                    if(int.Parse(split[0]) != 0){
+                    if(int.TryParse(split[0], out int intValue) && intValue !=  0){
                         File.WriteAllText(Path.Combine(pathT, "Zdawalnosc", "UTK.txt"), $"{int.Parse(split[0])-1}/{int.Parse(split[1])}");
                     }
                 }
