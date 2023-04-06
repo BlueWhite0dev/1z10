@@ -84,28 +84,28 @@ public class UISingleplayer : MonoBehaviour{
                 line = File.ReadAllText(Path.Combine(path, "Testy", "EE.txt"));
                 split = line.Split("/");
                 titleZdania.text = "Ilość zrobionych testów";
-                CzyZdaszT.text = $"Egzamin EE.08\nZdane: {split[0]}\nNie zdane: {split[1]}";
+                CzyZdaszT.text = $"Egzamin EE.08\n\nZdane: {split[0]}\nNie zdane: {int.Parse(split[1])-int.Parse(split[0])}\nZrobione: {split[1]}";
                 break;
 
             case 1: //SOPER
                 line = File.ReadAllText(Path.Combine(path, "Testy", "SO.txt"));
                 split = line.Split("/");
                 titleZdania.text = "Ilość zrobionych testów";
-                CzyZdaszT.text = $"Systemy Operacyjne\nZdane: {split[0]}\nNie zdane: {split[1]}";
+                CzyZdaszT.text = $"Systemy Operacyjne\n\nZdane: {split[0]}\nNie zdane: {int.Parse(split[1])-int.Parse(split[0])}\nZrobione: {split[1]}";
                 break;
 
             case 2: //ELSK
                 line = File.ReadAllText(Path.Combine(path, "Testy", "ELSK.txt"));
                 split = line.Split("/");
                 titleZdania.text = "Ilość zrobionych testów";
-                CzyZdaszT.text = $"Sieci Komputerowe\nZdane: {split[0]}\nNie zdane: {split[1]}";
+                CzyZdaszT.text = $"Sieci Komputerowe\n\nZdane: {split[0]}\nNie zdane: {int.Parse(split[1])-int.Parse(split[0])}\nZrobione: {split[1]}";
                 break;
 
             case 3: //UTK
                 line = File.ReadAllText(Path.Combine(path, "Testy", "UTK.txt"));
                 split = line.Split("/");
                 titleZdania.text = "Ilość zrobionych testów";
-                CzyZdaszT.text = $"Sprzęt komputerowy\nZdane: {split[0]}\nNie zdane: {split[1]}";
+                CzyZdaszT.text = $"Sprzęt komputerowy\n\nZdane: {split[0]}\nNie zdane: {int.Parse(split[1])-int.Parse(split[0])}\nZrobione: {split[1]}";
                 break;
             case 4: //zdawalnosc OGOLNE
                 line = File.ReadAllText(Path.Combine(path, "Testy", "Zdawalnosc", "EE.txt"));

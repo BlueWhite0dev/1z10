@@ -332,45 +332,47 @@ public class Testy : MonoBehaviour{
                 if(categories[0]){
                     string line = File.ReadAllText(Path.Combine(pathT, "SO.txt"));
                     string[] split = line.Split("/");
-                    File.WriteAllText(line, $"{int.Parse(split[0])+1}/{int.Parse(split[1])+1}");
+                    UnityEngine.Debug.Log(line);
+                    File.WriteAllText(Path.Combine(pathT, "SO.txt"), $"{int.Parse(split[0])+1}/{int.Parse(split[1])+1}");
 
                     line = Path.Combine(pathT, "Zdawalnosc", "SO.txt");
                     split = line.Split("/");
-                    if(int.Parse(split[0]) != 5){
-                        File.WriteAllText(line, $"{int.Parse(split[0])+1}/{int.Parse(split[1])}");
+                    if(int.TryParse(split[0], out int intValue) && intValue !=  5){
+                        UnityEngine.Debug.Log("dziala");
+                        File.WriteAllText(Path.Combine(pathT, "Zdawalnosc", "SO.txt"), $"{int.Parse(split[0])+1}/{int.Parse(split[1])}");
                     }
                 }
                 if(categories[1]){
                     string line = File.ReadAllText(Path.Combine(pathT, "ELSK.txt"));
                     string[] split = line.Split("/");
-                    File.WriteAllText(line, $"{int.Parse(split[0])+1}/{int.Parse(split[1])+1}");
+                    File.WriteAllText(Path.Combine(pathT, "ELSK.txt"), $"{int.Parse(split[0])+1}/{int.Parse(split[1])+1}");
 
                     line = Path.Combine(pathT, "Zdawalnosc", "ELSK.txt");
                     split = line.Split("/");
-                    if(int.Parse(split[0]) != 5){
-                        File.WriteAllText(line, $"{int.Parse(split[0])+1}/{int.Parse(split[1])}");
+                    if(int.TryParse(split[0], out int intValue) && intValue !=  5){
+                        File.WriteAllText(Path.Combine(pathT, "Zdawalnosc", "ELSK.txt"), $"{int.Parse(split[0])+1}/{int.Parse(split[1])}");
                     }
                 }
                 if(categories[2]){
                     string line = File.ReadAllText(Path.Combine(pathT, "EE.txt"));
                     string[] split = line.Split("/");
-                    File.WriteAllText(line, $"{int.Parse(split[0])+1}/{int.Parse(split[1])+1}");
+                    File.WriteAllText(Path.Combine(pathT, "EE.txt"), $"{int.Parse(split[0])+1}/{int.Parse(split[1])+1}");
 
                     line = Path.Combine(pathT, "Zdawalnosc", "EE.txt");
                     split = line.Split("/");
-                    if(int.Parse(split[0]) != 5){
-                        File.WriteAllText(line, $"{int.Parse(split[0])+1}/{int.Parse(split[1])}");
+                    if(int.TryParse(split[0], out int intValue) && intValue !=  5){
+                        File.WriteAllText(Path.Combine(pathT, "Zdawalnosc", "EE.txt"), $"{int.Parse(split[0])+1}/{int.Parse(split[1])}");
                     }
                 }
                 if(categories[3]){
                     string line = File.ReadAllText(Path.Combine(pathT, "UTK.txt"));
                     string[] split = line.Split("/");
-                    File.WriteAllText(line, $"{int.Parse(split[0])+1}/{int.Parse(split[1])+1}");
+                    File.WriteAllText(Path.Combine(pathT, "UTK.txt"), $"{int.Parse(split[0])+1}/{int.Parse(split[1])+1}");
 
                     line = Path.Combine(pathT, "Zdawalnosc", "UTK.txt");
                     split = line.Split("/");
-                    if(int.Parse(split[0]) != 5){
-                        File.WriteAllText(line, $"{int.Parse(split[0])+1}/{int.Parse(split[1])}");
+                    if(int.TryParse(split[0], out int intValue) && intValue !=  5){
+                        File.WriteAllText(Path.Combine(pathT, "Zdawalnosc", "UTK.txt"), $"{int.Parse(split[0])+1}/{int.Parse(split[1])}");
                     }
                 }
             }else{

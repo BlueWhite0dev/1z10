@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 15240
+  controlID: 115
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 15241
+  controlID: 67
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 15242
+  controlID: 45
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -308,7 +308,7 @@ MonoBehaviour:
   m_SerializedViewNames:
   - UnityEditor.DeviceSimulation.SimulatorWindow
   m_SerializedViewValues:
-  - D:\Projekty\1z11\Library\PlayModeViewStates\876d9e821bf66204b9f66e1c6a872c04
+  - D:\Projekty\1z11\Library\PlayModeViewStates\79f41d50a4bafa34c8faac87c2f5dda1
   m_PlayModeViewName: GameView
   m_ShowGizmos: 0
   m_TargetDisplay: 0
@@ -317,7 +317,7 @@ MonoBehaviour:
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
-  m_EnterPlayModeBehavior: 0
+  m_EnterPlayModeBehavior: 1
   m_UseMipMap: 0
   m_VSyncEnabled: 0
   m_Gizmos: 0
@@ -402,9 +402,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 6c660000
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: be9bffff5a9effffcaa4ffff82aaffffbaaaffff88adffffb2adffffdcadfffff8adffff9cb1ffffe2b1ffff16b2ffff32b2ffff4cb2ffff5cb2ffffbebcffff04bdffff38bdffff54bdffff6ebdffff7ebdffff3ebfffff84bfffffb8bfffffd4bfffffeebffffffebfffff12c4ffff4ac4ffff7ec4ffff9ac4ffffb4c4ffffc4c4ffff60e5ffff72e7ffffb8e7ffff86eaffffb0eaffffdaeafffff6eaffff18f3ffffeef3ffff26f4ffff5af4ffff76f4ffff90f4ffffa0f4ffff82f5ffffbaf5ffff90f8ffffbaf8ffffe4f8fffff4f8ffff8ef9ffff34faffff28fbffffc66a000078f4000022f80000b4110100a01401005e150100724a0100c84a0100ca4b01007a4d01003a4e0100226901003a80010090800100fa830100cee20100
+      m_ExpandedIDs: 28fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -796,22 +796,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Script/Singleplayer/Game
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Script/Singleplayer/Game
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Projekty\1z11
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 79}
-    m_SelectedIDs: 52660000
-    m_LastClickedID: 26194
-    m_ExpandedIDs: 0000000046660000486600005066000000ca9a3b
+    m_SelectedIDs: 56660000
+    m_LastClickedID: 26198
+    m_ExpandedIDs: 000000004a6600004c6600005466000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -839,7 +839,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000466600004866000000ca9a3b
+    m_ExpandedIDs: 000000004a6600004c660000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -866,7 +866,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c623000070f0000000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
